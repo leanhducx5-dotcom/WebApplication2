@@ -1,0 +1,850 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINIMAL - Fashion Store</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+            :root {
+                --bg-primary: #ffffff;
+                --bg-secondary: #f8f9fa;
+                --text-main: #111111;
+                --text-muted: #6c757d;
+                --accent-black: #000000;
+                --border-color: #e5e5e5;
+            }
+
+            body {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                color: var(--text-main);
+                background-color: var(--bg-primary);
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            /* Navbar & Typography */
+            .navbar-brand {
+                font-weight: 800;
+                letter-spacing: 4px;
+                font-size: 1.5rem;
+                color: var(--accent-black) !important;
+            }
+
+            .nav-link {
+                color: var(--text-main) !important;
+                font-weight: 500;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                letter-spacing: 1.5px;
+                padding: 0.5rem 1rem !important;
+                transition: opacity 0.2s ease;
+            }
+
+                .nav-link:hover, .nav-link.active {
+                    opacity: 0.6;
+                    border-bottom: 2px solid var(--accent-black);
+                }
+
+            /* Buttons */
+            .btn-minimal {
+                background-color: var(--accent-black);
+                color: #ffffff;
+                border: 1px solid var(--accent-black);
+                border-radius: 0;
+                padding: 10px 24px;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+
+                .btn-minimal:hover {
+                    background-color: #ffffff;
+                    color: var(--accent-black);
+                }
+
+            .btn-minimal-outline {
+                background-color: transparent;
+                color: var(--accent-black);
+                border: 1px solid var(--accent-black);
+                border-radius: 0;
+                padding: 10px 24px;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+
+                .btn-minimal-outline:hover {
+                    background-color: var(--accent-black);
+                    color: #ffffff;
+                }
+
+            /* Product Card */
+            .product-card {
+                border: none;
+                background: transparent;
+                transition: transform 0.3s ease;
+            }
+
+                .product-card .img-wrapper {
+                    position: relative;
+                    overflow: hidden;
+                    background-color: #f3f3f3;
+                    padding-top: 125%; /* 4:5 Aspect Ratio */
+                }
+
+                .product-card img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+
+                .product-card:hover img {
+                    transform: scale(1.05);
+                }
+
+                .product-card .badge-tag {
+                    position: absolute;
+                    top: 12px;
+                    left: 12px;
+                    background-color: var(--accent-black);
+                    color: white;
+                    font-size: 0.7rem;
+                    text-transform: uppercase;
+                    padding: 4px 8px;
+                    border-radius: 0;
+                    letter-spacing: 1px;
+                }
+
+            .product-title {
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-top: 12px;
+                margin-bottom: 4px;
+                text-decoration: none;
+                color: var(--text-main);
+                display: block;
+            }
+
+            .product-price {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                font-weight: 500;
+            }
+
+            /* Filter Pills */
+            .filter-btn {
+                border: none;
+                background: transparent;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                padding: 6px 16px;
+                color: var(--text-muted);
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+                .filter-btn.active, .filter-btn:hover {
+                    color: var(--accent-black);
+                    font-weight: 700;
+                    border-bottom: 2px solid var(--accent-black);
+                }
+
+            /* SPA Sections Toggle */
+            .page-section {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+                .page-section.active {
+                    display: block;
+                    opacity: 1;
+                }
+
+            /* Hero Banner */
+            .hero-banner {
+                background-color: #f1f1f1;
+                padding: 100px 0;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+                font-weight: 800;
+                letter-spacing: 2px;
+                margin-bottom: 20px;
+            }
+
+            /* Footer */
+            footer {
+                background-color: var(--accent-black);
+                color: #ffffff;
+                margin-top: auto;
+            }
+
+                footer a {
+                    color: #aaaaaa;
+                    text-decoration: none;
+                    transition: color 0.2s;
+                }
+
+                    footer a:hover {
+                        color: #ffffff;
+                    }
+
+            .form-control-minimal {
+                background-color: transparent;
+                border: 1px solid #444;
+                color: #fff;
+                border-radius: 0;
+            }
+
+                .form-control-minimal:focus {
+                    background-color: transparent;
+                    border-color: #fff;
+                    color: #fff;
+                    box-shadow: none;
+                }
+
+            /* Cart Page Styling */
+            .cart-table img {
+                width: 70px;
+                height: 90px;
+                object-fit: cover;
+            }
+
+            .quantity-btn {
+                border: 1px solid var(--border-color);
+                background: #fff;
+                width: 32px;
+                height: 32px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="sticky-top bg-white border-bottom">
+        <nav class="navbar navbar-expand-lg py-3">
+            <div class="container">
+                <a class="navbar-brand" href="#" onclick="navigateTo('home')">MINIMAL</a>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="nav-home" href="#" onclick="navigateTo('home')">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-shop" href="#" onclick="navigateTo('shop')">Sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-contact" href="#" onclick="navigateTo('contact')">Liên hệ</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-link text-dark p-0 position-relative" onclick="navigateTo('cart')">
+                            <i class="bi bi-bag fs-4"></i>
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 0.65rem;">
+                                0
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT AREA (SPA) -->
+    <main>
+        <section id="section-home" class="page-section active">
+            <!-- Hero Banner -->
+            <div class="hero-banner mb-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <p class="text-uppercase tracking-wide text-muted mb-2" style="letter-spacing: 2px;">Bộ Sưu Tập Mới 2026</p>
+                            <h1 class="hero-title text-uppercase">Tối Giản & Sáng Tạo</h1>
+                            <p class="lead text-muted mb-4 fs-6">Định hình phong cách hiện đại với các thiết kế tối giản, tinh tế trong từng đường may.</p>
+                            <button class="btn btn-minimal" onclick="navigateTo('shop')">Khám Phá Ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Products -->
+            <div class="container my-5">
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <div>
+                        <h2 class="h4 text-uppercase fw-bold m-0" style="letter-spacing: 1px;">Sản Phẩm Nổi Bật</h2>
+                        <p class="text-muted small m-0">Những món đồ bán chạy nhất tuần này</p>
+                    </div>
+                    <a href="#" onclick="navigateTo('shop')" class="text-dark fw-semibold text-decoration-none small">Xem Tất Cả &rarr;</a>
+                </div>
+
+                <div class="row g-4" id="featured-products-grid">
+                    <!-- Featured products will be loaded dynamic via JS -->
+                </div>
+            </div>
+
+            <!-- Promotion Banner -->
+            <div class="bg-dark text-white py-5 my-5">
+                <div class="container text-center py-4">
+                    <p class="text-uppercase small tracking-widest text-secondary mb-2">Ưu Đãi Đặc Biệt</p>
+                    <h3 class="fw-bold mb-3">GIẢM 20% CHO ĐƠN HÀNG ĐẦU TIÊN</h3>
+                    <p class="mb-4 text-secondary small">Sử dụng mã <strong>MINIMAL20</strong> khi thanh toán đơn hàng trực tuyến.</p>
+                    <button class="btn btn-minimal-outline border-white text-white" onclick="navigateTo('shop')">Mua Sắm Ngay</button>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="container my-5 py-4">
+                <div class="row g-4 text-center">
+                    <div class="col-md-4">
+                        <i class="bi bi-truck fs-2 mb-3 d-block"></i>
+                        <h5 class="fw-bold fs-6 text-uppercase">Giao Hàng Miễn Phí</h5>
+                        <p class="text-muted small">Áp dụng cho mọi đơn hàng từ 500.000đ trên toàn quốc.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="bi bi-arrow-repeat fs-2 mb-3 d-block"></i>
+                        <h5 class="fw-bold fs-6 text-uppercase">Đổi Trả Trong 30 Ngày</h5>
+                        <p class="text-muted small">Hỗ trợ đổi size và mẫu cực kì đơn giản, nhanh chóng.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="bi bi-shield-check fs-2 mb-3 d-block"></i>
+                        <h5 class="fw-bold fs-6 text-uppercase">Chất Lượng Cao Cấp</h5>
+                        <p class="text-muted small">Chất liệu vải thân thiện với môi trường và bền bỉ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-shop" class="page-section">
+            <div class="container py-5">
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="h3 fw-bold text-uppercase mb-2">Cửa Hàng</h1>
+                        <p class="text-muted small mb-0">Tất cả sản phẩm thiết kế tối giản dành cho bạn</p>
+                    </div>
+                    <div class="col-md-6 mt-3 mt-md-0">
+                        <div class="input-group">
+                            <input type="text" id="search-input" class="form-control rounded-0 border-end-0" placeholder="Tìm kiếm sản phẩm..." onkeyup="filterProducts()">
+                            <span class="input-group-text bg-white rounded-0"><i class="bi bi-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="d-flex flex-wrap gap-2 mb-4 border-bottom pb-3">
+                    <button class="filter-btn active" onclick="setCategory('all', this)">Tất cả</button>
+                    <button class="filter-btn" onclick="setCategory('tshirt', this)">Áo Phông</button>
+                    <button class="filter-btn" onclick="setCategory('jacket', this)">Áo Khoác</button>
+                    <button class="filter-btn" onclick="setCategory('pants', this)">Quần</button>
+                    <button class="filter-btn" onclick="setCategory('accessories', this)">Phụ Kiện</button>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="row g-4" id="shop-products-grid">
+                    <!-- Products dynamically rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="section-cart" class="page-section">
+            <div class="container py-5">
+                <h1 class="h3 fw-bold text-uppercase mb-4">Giỏ Hàng Của Bạn</h1>
+
+                <div id="cart-content">
+                    <!-- Dynamic rendering: Empty state or Cart list -->
+                </div>
+            </div>
+        </section>
+
+        <section id="section-contact" class="page-section">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-md-6">
+                        <h1 class="h3 fw-bold text-uppercase mb-3">Liên Hệ Với Chúng Tôi</h1>
+                        <p class="text-muted mb-4">Bạn có câu hỏi hoặc cần sự hỗ trợ? Hãy gửi tin nhắn cho chúng tôi, đội ngũ chăm sóc khách hàng sẽ phản hồi trong vòng 24 giờ.</p>
+
+                        <form onsubmit="handleContactSubmit(event)">
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold text-uppercase">Họ và Tên</label>
+                                <input type="text" class="form-control rounded-0" required placeholder="Nguyễn Văn A">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold text-uppercase">Email</label>
+                                <input type="email" class="form-control rounded-0" required placeholder="example@email.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold text-uppercase">Nội dung tin nhắn</label>
+                                <textarea class="form-control rounded-0" rows="5" required placeholder="Nhập nội dung cần hỗ trợ..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-minimal">Gửi Tin Nhắn</button>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="bg-light p-4 mb-4">
+                            <h5 class="fw-bold text-uppercase fs-6 mb-3">Thông Tin Cửa Hàng</h5>
+                            <p class="small text-muted mb-2"><i class="bi bi-geo-alt me-2 text-dark"></i> 123 Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh</p>
+                            <p class="small text-muted mb-2"><i class="bi bi-telephone me-2 text-dark"></i> +84 (0) 123 456 789</p>
+                            <p class="small text-muted mb-2"><i class="bi bi-envelope me-2 text-dark"></i> support@minimalstore.com</p>
+                            <p class="small text-muted mb-0"><i class="bi bi-clock me-2 text-dark"></i> 09:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>
+                        </div>
+
+                        <!-- Store Location Visual Placeholder -->
+                        <div class="bg-secondary text-white p-5 text-center d-flex align-items-center justify-content-center" style="height: 250px;">
+                            <div>
+                                <i class="bi bi-map fs-1 d-block mb-2"></i>
+                                <span>Bản đồ vị trí cửa hàng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <h5 class="navbar-brand text-white mb-3">MINIMAL</h5>
+                    <p class="small text-secondary">Thương hiệu thời trang tối giản hướng đến phong cách hiện đại, thanh lịch và sự thoải mái tuyệt đối cho người mặc.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-uppercase fw-bold small tracking-widest mb-3">Liên Kết</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" onclick="navigateTo('home')">Trang chủ</a></li>
+                        <li class="mb-2"><a href="#" onclick="navigateTo('shop')">Sản phẩm</a></li>
+                        <li class="mb-2"><a href="#" onclick="navigateTo('contact')">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-uppercase fw-bold small tracking-widest mb-3">Mạng Xã Hội</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#">Instagram</a></li>
+                        <li class="mb-2"><a href="#">Facebook</a></li>
+                        <li class="mb-2"><a href="#">TikTok</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-uppercase fw-bold small tracking-widest mb-3">Đăng Ký Nhận Tin</h6>
+                    <p class="small text-secondary">Nhận ngay ưu đãi 10% cho đơn hàng đầu tiên khi đăng ký newsletter.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control form-control-minimal" placeholder="Email của bạn">
+                        <button class="btn btn-light rounded-0 text-uppercase fw-bold px-3" style="font-size: 0.75rem;">Gửi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary pt-4 text-center small text-secondary">
+                <p class="m-0">&copy; 2026 MINIMAL Store. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-body p-0">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="row g-0" id="modal-product-content">
+                        <!-- Dynamic Modal Content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="actionToast" class="toast align-items-center text-white bg-dark border-0 rounded-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toast-message">
+                    Đã thêm sản phẩm vào giỏ hàng.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+            // Mock Product Data
+            const products = [
+                {
+                    id: 1,
+                    name: "Áo Phông Overfit Minimal",
+                    category: "tshirt",
+                    price: 350000,
+                    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop",
+                    badge: "Mới",
+                    description: "Áo thun form rộng chuẩn phong cách tối giản, chất liệu cotton 100% thoáng mát, dày dặn và giữ form tốt."
+                },
+                {
+                    id: 2,
+                    name: "Áo Khoác Blazer Đen Basic",
+                    category: "jacket",
+                    price: 890000,
+                    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop",
+                    badge: "Hot",
+                    description: "Áo Blazer nam nữ form vừa vặn, thiết kế tinh tế với gam màu đen cá tính, phù hợp đi làm lẫn đi chơi."
+                },
+                {
+                    id: 3,
+                    name: "Quần Tây Ống Rộng Minimal",
+                    category: "pants",
+                    price: 520000,
+                    image: "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?w=600&auto=format&fit=crop",
+                    badge: "",
+                    description: "Quần tây ống rộng tôn dáng, đường xếp ly tinh tế tạo sự sang trọng và thoải mái vận động."
+                },
+                {
+                    id: 4,
+                    name: "Mũ Lưỡi Trai Đen Monogram",
+                    category: "accessories",
+                    price: 220000,
+                    image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&auto=format&fit=crop",
+                    badge: "",
+                    description: "Phụ kiện hoàn hảo hoàn thiện trang phục. Chất liệu kaki cao cấp bền màu."
+                },
+                {
+                    id: 5,
+                    name: "Áo Hoodie Trắng Oversized",
+                    category: "jacket",
+                    price: 650000,
+                    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop",
+                    badge: "Bán chạy",
+                    description: "Áo Hoodie chất nỉ nanh sấu giữ ấm tốt, thiết kế mũ trùm cá tính phong cách streetwear."
+                },
+                {
+                    id: 6,
+                    name: "Quần Short Kaki Minimal",
+                    category: "pants",
+                    price: 380000,
+                    image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&auto=format&fit=crop",
+                    badge: "",
+                    description: "Quần short kaki năng động thích hợp cho những ngày hè thoải mái."
+                }
+            ];
+
+            // State Management
+            let cart = [];
+            let currentCategory = 'all';
+
+            // Format Currency Helper
+            function formatVND(amount) {
+                return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+            }
+
+            // Single Page Application Navigation
+            function navigateTo(sectionId) {
+                // Update active section
+                document.querySelectorAll('.page-section').forEach(sec => {
+                    sec.classList.remove('active');
+                });
+                const targetSection = document.getElementById(`section-${sectionId}`);
+                if(targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeNav = document.getElementById(`nav-${sectionId}`);
+                if(activeNav) {
+                    activeNav.classList.add('active');
+                }
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Re-render cart if navigating to cart section
+                if (sectionId === 'cart') {
+                    renderCart();
+                }
+            }
+
+            // Render Featured Products (Home)
+            function renderFeaturedProducts() {
+                const grid = document.getElementById('featured-products-grid');
+                const featured = products.slice(0, 3); // Take first 3 products
+                grid.innerHTML = featured.map(product => createProductCardHTML(product)).join('');
+            }
+
+            // Render Shop Products
+            function renderShopProducts(productsToRender) {
+                const grid = document.getElementById('shop-products-grid');
+                if (productsToRender.length === 0) {
+                    grid.innerHTML = `<div class="col-12 text-center py-5"><p class="text-muted">Không tìm thấy sản phẩm phù hợp.</p></div>`;
+                    return;
+                }
+                grid.innerHTML = productsToRender.map(product => createProductCardHTML(product)).join('');
+            }
+
+            // Create HTML string for single Product Card
+            function createProductCardHTML(product) {
+                return `
+                    <div class="col-6 col-md-4">
+                        <div class="product-card">
+                            <div class="img-wrapper">
+                                ${product.badge ? `<span class="badge-tag">${product.badge}</span>` : ''}
+                                <img src="${product.image}" alt="${product.name}" loading="lazy">
+                            </div>
+                            <a href="#" onclick="openQuickView(${product.id}); return false;" class="product-title">${product.name}</a>
+                            <div class="product-price mb-3">${formatVND(product.price)}</div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-minimal-outline btn-sm w-100" onclick="addToCart(${product.id})">Thêm Giỏ Hàng</button>
+                                <button class="btn btn-outline-dark btn-sm rounded-0" onclick="openQuickView(${product.id})"><i class="bi bi-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Filter Products by Category
+            function setCategory(category, btnElement) {
+                currentCategory = category;
+
+                // Update Active Filter Button
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+
+                filterProducts();
+            }
+
+            // Filter Products Search & Category
+            function filterProducts() {
+                const searchVal = document.getElementById('search-input').value.toLowerCase();
+
+                const filtered = products.filter(p => {
+                    const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
+                    const matchesSearch = p.name.toLowerCase().includes(searchVal);
+                    return matchesCategory && matchesSearch;
+                });
+
+                renderShopProducts(filtered);
+            }
+
+            // Quick View Modal
+            function openQuickView(productId) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+
+                const modalContent = document.getElementById('modal-product-content');
+                modalContent.innerHTML = `
+                    <div class="col-md-6">
+                        <img src="${product.image}" alt="${product.name}" class="img-fluid w-100" style="object-fit: cover; height: 100%; min-height: 350px;">
+                    </div>
+                    <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
+                        <span class="text-uppercase small text-muted tracking-widest">${product.category}</span>
+                        <h3 class="fw-bold mt-1 mb-2">${product.name}</h3>
+                        <h4 class="fw-semibold text-muted mb-3">${formatVND(product.price)}</h4>
+                        <p class="small text-muted mb-4">${product.description}</p>
+                        <button class="btn btn-minimal w-100" onclick="addToCart(${product.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">
+                            Thêm Vào Giỏ Hàng
+                        </button>
+                    </div>
+                `;
+
+                const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                modal.show();
+            }
+
+            // Cart Actions
+            function addToCart(productId) {
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    const product = products.find(p => p.id === productId);
+                    cart.push({ ...product, quantity: 1 });
+                }
+
+                updateCartBadge();
+                showToast(`Đã thêm "${products.find(p => p.id === productId).name}" vào giỏ hàng!`);
+            }
+
+            function updateCartBadge() {
+                const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cart-badge').innerText = totalCount;
+            }
+
+            function updateQuantity(productId, delta) {
+                const item = cart.find(i => i.id === productId);
+                if (item) {
+                    item.quantity += delta;
+                    if (item.quantity <= 0) {
+                        removeFromCart(productId);
+                        return;
+                    }
+                }
+                updateCartBadge();
+                renderCart();
+            }
+
+            function removeFromCart(productId) {
+                cart = cart.filter(item => item.id !== productId);
+                updateCartBadge();
+                renderCart();
+                showToast("Đã xóa sản phẩm khỏi giỏ hàng.");
+            }
+
+            // Render Cart Page Content
+            function renderCart() {
+                const container = document.getElementById('cart-content');
+
+                if (cart.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-5">
+                            <i class="bi bi-bag-x fs-1 text-muted d-block mb-3"></i>
+                            <h5>Giỏ hàng của bạn đang trống</h5>
+                            <p class="text-muted small mb-4">Hãy tiếp tục khám phá các sản phẩm tối giản tuyệt vời của chúng tôi.</p>
+                            <button class="btn btn-minimal" onclick="navigateTo('shop')">Khám Phá Sản Phẩm</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const shipping = subtotal >= 500000 ? 0 : 30000;
+                const total = subtotal + shipping;
+
+                container.innerHTML = `
+                    <div class="row g-5">
+                        <div class="col-lg-8">
+                            <div class="table-responsive">
+                                <table class="table align-middle cart-table">
+                                    <thead>
+                                        <tr class="text-uppercase small text-muted">
+                                            <th>Sản Phẩm</th>
+                                            <th>Giá</th>
+                                            <th class="text-center">Số Lượng</th>
+                                            <th class="text-end">Thành Tiền</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${cart.map(item => `
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-3">
+                                                        <img src="${item.image}" alt="${item.name}">
+                                                        <div>
+                                                            <h6 class="mb-0 fw-semibold fs-6">${item.name}</h6>
+                                                            <span class="small text-muted text-uppercase">${item.category}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="small fw-medium">${formatVND(item.price)}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center justify-content-center gap-1">
+                                                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                                        <span class="px-2 small fw-bold">${item.quantity}</span>
+                                                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="text-end small fw-bold">${formatVND(item.price * item.quantity)}</td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-link text-danger p-0" onclick="removeFromCart(${item.id})">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="bg-light p-4">
+                                <h5 class="fw-bold text-uppercase fs-6 mb-3">Tóm Tắt Đơn Hàng</h5>
+
+                                <div class="d-flex justify-content-between mb-2 small">
+                                    <span class="text-muted">Tạm tính:</span>
+                                    <span class="fw-semibold">${formatVND(subtotal)}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 small">
+                                    <span class="text-muted">Phí vận chuyển:</span>
+                                    <span class="fw-semibold">${shipping === 0 ? 'Miễn phí' : formatVND(shipping)}</span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control rounded-0 fs-7" placeholder="Mã giảm giá (MINIMAL20)">
+                                        <button class="btn btn-outline-dark rounded-0 small">Áp Dụng</button>
+                                    </div>
+                                </div>
+
+                                <div class="border-top pt-3 d-flex justify-content-between mb-4">
+                                    <span class="fw-bold text-uppercase">Tổng cộng:</span>
+                                    <span class="fw-bold fs-5">${formatVND(total)}</span>
+                                </div>
+
+                                <button class="btn btn-minimal w-100" onclick="processCheckout()">Tiến Hành Thanh Toán</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Checkout Action
+            function processCheckout() {
+                alert('Cảm ơn bạn đã đặt hàng! Đơn hàng của bạn đang được xử lý.');
+                cart = [];
+                updateCartBadge();
+                renderCart();
+            }
+
+            // Contact Form Handler
+            function handleContactSubmit(e) {
+                e.preventDefault();
+                showToast("Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm.");
+                e.target.reset();
+            }
+
+            // Helper Toast Notification
+            function showToast(message) {
+                document.getElementById('toast-message').innerText = message;
+                const toastEl = document.getElementById('actionToast');
+                const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+                toast.show();
+            }
+
+            // Initialization on window load
+            window.onload = function() {
+                renderFeaturedProducts();
+                renderShopProducts(products);
+            };
+    </script>
+</body>
+</html>
